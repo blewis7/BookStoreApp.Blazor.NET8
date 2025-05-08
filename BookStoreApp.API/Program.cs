@@ -1,3 +1,4 @@
+using AutoMapper;
 using BookStoreApp.API.Configurations;
 using BookStoreApp.API.Data;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 var connString = builder.Configuration.GetConnectionString("BookStoreAppDbConnection");
 builder.Services.AddDbContext<BookStoreDbContext>(options => options.UseSqlServer(connString));
 
-builder.Services.AddAutoMapper(typeof(MapperConfig));
+//builder.Services.AddAutoMapper(typeof(MapperConfig));
+
+var mapperConfig = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile<MapperConfig>(); // Add your custom profile(s) here
+});
+
+var mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
