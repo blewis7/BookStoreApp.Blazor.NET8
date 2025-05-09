@@ -34,7 +34,7 @@ namespace BookStoreApp.API.Controllers
             {
                 var authors = await _context.Authors.ToListAsync();
                 var authorDtos = mapper.Map<IEnumerable<AuthorReadOnlyDto>>(authors);
-                return Ok(authors);
+                return Ok(authorDtos);
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace BookStoreApp.API.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex, $"Error Performing GET in {nameof(GetAuthors)}");
+                _logger.LogInformation(ex, $"Error Performing GET in {nameof(GetAuthor)}");
                 return StatusCode(500, $"ERROR: {ex.Message}");
             }
             
@@ -123,7 +123,7 @@ namespace BookStoreApp.API.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex, $"Error Performing GET in {nameof(GetAuthors)}");
+                _logger.LogInformation(ex, $"Error Performing POST in {nameof(PostAuthor)}");
                 return StatusCode(500, $"ERROR: {ex.Message}");
             }
         }
